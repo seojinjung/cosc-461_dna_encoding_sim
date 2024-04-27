@@ -6,7 +6,6 @@ from droplet import Droplet
 from math import ceil
 from utils import screen_repeat
 from lfsr import lfsr, lfsr32p, lfsr32s
-from pylfsr import LFSR
 from robust_solition import PRNG
 from reedsolo import RSCodec
 import operator
@@ -50,12 +49,9 @@ class DNAFountain:
         self.final = self.calc_stop()
 
         #things related to random number generator
-        # self.lfsr = lfsr(lfsr32s(), lfsr32p()) #starting an lfsr with a certain state and a polynomial for 32bits.
-        fpoly = [32]
-        self.lfsr = LFSR(fpoly=fpoly, initstate='ones')
+        self.lfsr = lfsr(lfsr32s(), lfsr32p()) #starting an lfsr with a certain state and a polynomial for 32bits.
         self.lfsr_l = len(    '{0:b}'.format( lfsr32p() )   ) - 1 #calculate the length of lsfr in bits 
         self.seed = self.lfsr.next()
-
 
         self.PRNG = PRNG(K = self.num_chunks, delta = delta, c = c_dist, np = np) #creating the solition distribution object
         self.PRNG.set_seed(self.seed)
@@ -70,9 +66,6 @@ class DNAFountain:
         self.tries = 0 #number of times we tried to create a droplet
         self.good = 0 #droplets that were screened successfully.
         self.oligo_l = self.calc_oligo_length()
-
-
-
 
     def calc_oligo_length(self):
         #return the number of nucleotides in an oligo:
