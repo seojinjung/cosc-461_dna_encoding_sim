@@ -51,7 +51,8 @@ class DNAFountain:
         #things related to random number generator
         self.lfsr = lfsr(lfsr32s(), lfsr32p()) #starting an lfsr with a certain state and a polynomial for 32bits.
         self.lfsr_l = len(    '{0:b}'.format( lfsr32p() )   ) - 1 #calculate the length of lsfr in bits 
-        self.seed = self.lfsr.next()
+        # self.seed = self.lfsr.next()
+        self.seed = self.lfsr
 
         self.PRNG = PRNG(K = self.num_chunks, delta = delta, c = c_dist, np = np) #creating the solition distribution object
         self.PRNG.set_seed(self.seed)

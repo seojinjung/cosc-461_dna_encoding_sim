@@ -103,7 +103,7 @@ def main():
 
 	line = 0
 	errors = 0
-	seen_seeds = defaultdict(int);
+	seen_seeds = defaultdict(int)
 
 
 	#pbar = tqdm(total= args.chunk_num, desc = "Valid oligos")
@@ -193,8 +193,8 @@ def main():
 			break
 
 	if not g.isDone():
-		 logging.error("Could not decode all file...")
-		 sys.exit(1)
+		logging.error("Could not decode all file...")
+		sys.exit(1)
 
 	outstring = g.getString()
 	f = open(args.out, 'wb')
@@ -203,7 +203,7 @@ def main():
 
 	logging.info("MD5 is %s", md5.new(outstring).hexdigest())
 
-	json.dump(seen_seeds, open("seen_barocdes.json",'w'), sort_keys = True, indent = 4)
+	json.dump(seen_seeds, open("seen_barcodes.json",'w'), sort_keys = True, indent = 4)
 
 
 
