@@ -109,7 +109,7 @@ class DNAFountain:
 
     def updateSeed(self):
         #This function creates a fresh seed for the droplet and primes the solition inverse cdf sampler
-        self.seed = self.lfsr.next() #deploy one round of lfsr, and read the register.
+        self.seed = next(self.lfsr) #deploy one round of lfsr, and read the register.
         self.PRNG.set_seed(self.seed) #update the seed with the register
 
     def rand_chunk_nums(self):
