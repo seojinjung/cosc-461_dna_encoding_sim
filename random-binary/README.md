@@ -6,3 +6,4 @@ Next up:
         -command line controls to read in my tester files (steal from Seojin)
         -create pools then simulate coverage and shuffle them around
         -error injection?
+        
