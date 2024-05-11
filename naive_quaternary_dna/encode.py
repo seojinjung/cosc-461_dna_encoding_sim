@@ -123,7 +123,6 @@ def arterror (bits, type, chance):
     return error_str
 
 # homopolymer function: calculates homopolymer runs of 3+ bases
-# adapted from alma's code thank u alma
 def homopolymer(dna):
     runs = [] # list of all 3+ runs found
     homopolymerRun = 0 # current run
@@ -138,7 +137,7 @@ def homopolymer(dna):
         cur = i
         homopolymerRun = 1
 
-    if homopolymerRun > 3:
+    if homopolymerRun > 2:
       runs.append((cur * homopolymerRun, homopolymerRun))
 
     # print(runs)
@@ -147,7 +146,6 @@ def homopolymer(dna):
     return result
 
 # gc function: calculates gc content (%)
-# adapted from alma's code thank u alma
 def gc(dna):
    gc_count = 0
 
@@ -177,7 +175,7 @@ def main():
     # results of homopolymer + gc tests
     homopolymers = homopolymer(output_w_err)
     logging.info("total homopolymer runs: ", homopolymers[0])
-    logging.info("longest homopolymer run: ", homopolymers[1])
+    logging.info("longest homopolymer run: ", homopolymers[1]) # not necessarily the only run with this length
     gcs = gc(output_w_err)
     logging.info("gc content: ", str(gcs) + "%")
 
