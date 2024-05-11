@@ -4,6 +4,8 @@ encode.py - simulates encoding files into DNA sequences using naive quaternary e
 PARAMETERS:
     'file_in' - DNA-encoded file
     'out'     - decoded output file
+
+@seojin
 '''
 
 # import libraries and other scripts
