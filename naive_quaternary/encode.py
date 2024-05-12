@@ -4,8 +4,6 @@ encode.py - simulates encoding files into DNA sequences using naive quaternary e
 PARAMETERS:
     'file_in' - any file
     'out'     - output file (DNA)
-
-@seojin
 '''
 
 # import libraries and other scripts
@@ -14,6 +12,8 @@ import logging
 import sys
 import argparse
 import random
+
+logging.basicConfig(level=logging.DEBUG)
 
 # read_args function: handles argument passing/parsing
 def read_args():
@@ -133,12 +133,12 @@ def homopolymer(dna):
         homopolymerRun += 1
       else:
         if homopolymerRun > 2:
-          runs.append((cur * homopolymerRun, homopolymerRun))
+          runs.append((homopolymerRun, cur)) # (number of repeats), (base)
         cur = i
         homopolymerRun = 1
 
     if homopolymerRun > 2:
-      runs.append((cur * homopolymerRun, homopolymerRun))
+      runs.append((homopolymerRun, cur))
 
     # print(runs)
 
@@ -160,6 +160,7 @@ def gc(dna):
 # main function: takes file argument, translates to binary, and outputs a DNA sequence
 def main():
     args = read_args()
+    print("reading file.")
 
     # read file as binary
     binput = readAsBinary(args.file_in)
@@ -168,22 +169,22 @@ def main():
     output = binToDNA(binput)
 
     # inject errors
-    output_w_err = arterror(output, "insertion", 1/1000)
-    output_w_err = arterror(output_w_err, "deletion", 1/1000)
-    output_w_err = arterror(output_w_err, "substitution", 1/500)
+    # output = arterror(output, "insertion", 1/1000)
+    # output = arterror(output, "deletion", 1/1000)
+    # output = arterror(output, "substitution", 1/500)
 
     # results of homopolymer + gc tests
-    homopolymers = homopolymer(output_w_err)
-    logging.info("total homopolymer runs: ", homopolymers[0])
-    logging.info("longest homopolymer run: ", homopolymers[1]) # not necessarily the only run with this length
-    gcs = gc(output_w_err)
-    logging.info("gc content: ", str(gcs) + "%")
+    homopolymers = homopolymer(output)
+    print("total homopolymer runs:", homopolymers[0])
+    print("longest homopolymer run:", homopolymers[1]) # not necessarily the only run with this length
+    gcs = gc(output)
+    print("gc content:", str(gcs) + "%")
 
     # write output to file
     out = open(args.out, 'w')
     out.write(output)
     out.close()
-    logging.info("file %s created.", output)
+    print("file", args.out, "created.")
 
 # ----
 main()
