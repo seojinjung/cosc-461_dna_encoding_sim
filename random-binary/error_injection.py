@@ -28,7 +28,7 @@ def arterror (bits, type, chance):
 
       # Identify indices to delete based on the error chance
       for i in range(len(bits_list)):
-          if random.random() < chance:
+          if random.random()*100 < chance:
               indices_to_delete.append(i)
 
       # Delete bits from the list based on the identified indices
@@ -56,6 +56,7 @@ def arterror (bits, type, chance):
 
 
 def injectError(string):
-    arterror(string, "insertion", 0.004)
-    arterror(string, "deletion", 0.1135)
-    arterror(string, "substitution", 0.003)
+    string = arterror(string, "insertion", 0.004)
+    string = arterror(string, "deletion", 0.1135)
+    string = arterror(string, "substitution", 0.003)
+    return string

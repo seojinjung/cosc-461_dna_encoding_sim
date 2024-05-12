@@ -8,6 +8,7 @@ import logging
 import sys
 import argparse
 import random
+import math
 
 #local imports
 import encode
@@ -60,9 +61,13 @@ def writeFile(file_out, data):
 #I don't know how to access the args so just pretend that IN is the file_in argument and OUT is out
 def main():
     #make the pool
+    BYTES_PER_BLOCK = 12
     args = read_args()
     input_text = readFile(args.file_in)
-    POOL = pool.makePool(input_text, 12)
+    POOL = pool.makePool(input_text, BYTES_PER_BLOCK)
+    ADDR_BITS = math.ceil(math.log2(len(POOL))) #number of address bits. same equation as in pool.py
+    if (ADDR_BITS == 0): ADDR_BITS = 1
+    DATA_BITS = BYTES_PER_BLOCK * 8
 
     #print(str(input_text))
     #print(POOL)
@@ -83,11 +88,49 @@ def main():
     SIM_POOL = list() #the actual simulated pool. messier and way larger
     for strand in POOL:
         for i in range(COVERAGE):  #make more variable than just coverage? give or take?
+            errorStrand = strand
+            #print("This is the strand before error")
+            #print(errorStrand)
             errorStrand = error_injection.injectError(strand)
+            #print("This is the strand after error")
+            #print(errorStrand)
             SIM_POOL.append(errorStrand)
     #SHUFFLE!!!!
     random.shuffle(SIM_POOL)
 
     #now that I have the simulated pool, try to re-order and decode
+    strandsByAddress = dict() #dictionary of key=adress and value=list of data with that address
+    
+    #one by one, read a strand
+    for strand in SIM_POOL:
+        binaryString = decode.ntToBinary(strand)
+        address = binaryString[:ADDR_BITS]
+        data = strand[ADDR_BITS:]
+
+        #sort by address
+        if (strandsByAddress.get(address) == None): 
+            strandsByAddress[address] = [data]
+            #print(strandsByAddress[address])
+        else: 
+            strandsByAddress[address].append(data)
+    #print (strandsByAddress)
+    
+    #MAJORITY VOTE
+    sortedDecodedStrands = list()
+    for i in range(len(POOL)): sortedDecodedStrands.append(" ")
+
+    for key in strandsByAddress:
+        majorityStrandNT = decode.majorityVote(strandsByAddress[key], DATA_BITS)
+        majorityStrandBinary = decode.ntToBinary(majorityStrandNT)
+        majorityStrandString = decode.binaryToString(majorityStrandBinary)
+        keyAsInt = int(key, 2)
+        sortedDecodedStrands[keyAsInt] =  majorityStrandString
+
+    FINAL_TEXT = ""
+    for i in sortedDecodedStrands: FINAL_TEXT = FINAL_TEXT + i
+
+    print(FINAL_TEXT)
+
+    #print to DNA_OUT
 
 main()
