@@ -45,14 +45,11 @@ class Droplet:
         #computes a reed solomon on the seed+data.
         #returns everything.
 
-        seed_ord =  [ ord(c) for c in struct.pack("!I", self.seed) ]
+        seed_ord =  [ c for c in struct.pack("!I", self.seed) ]
             #converting the seed into exectly four bytes.
-        message = seed_ord + self.data
+        message = seed_ord + list(self.data)
         
         if self.rs > 0:
             message = self.rs_obj.encode(message) #adding RS symbols to the message
 
         return message
-        
-
-
