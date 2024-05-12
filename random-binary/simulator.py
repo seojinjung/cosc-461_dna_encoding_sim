@@ -123,6 +123,7 @@ def main():
     for key in strandsByAddress:
         majorityStrandNT = decode.majorityVote(strandsByAddress[key], DATA_BITS)
         majorityStrandBinary = decode.ntToBinary(majorityStrandNT)
+        #print("Majority guy: ", majorityStrandBinary)
         majorityStrandString = decode.binaryToString(majorityStrandBinary)
         keyAsInt = int(key, 2)
         #if statement to catch rogue incorrectly address strands
