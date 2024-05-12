@@ -79,11 +79,9 @@ def main():
     prepare(args.max_homopolymer)
     
     used_bc = dict()
-
     
     while f.good < f.final:
         d = f.droplet()
-
 
         if f.screen(d):
             if not args.no_fasta:
