@@ -150,7 +150,9 @@ for i in range(timesRun):
     outputs.append(output)
     errorRates.append(errorRate(input_text, output))
 
-resultPrint = "RESULTS\n\nRan (" + str(timesRun) + ") times.\n\nList of outputs:\n"
+#WRITE UP RESULTS
+averageError = sum(errorRates)/len(errorRates)
+resultPrint = "RESULTS\n\nRan (" + str(timesRun) + ") times.\nCoverage: " + str(args.c) + "\nAverage error: " + str(averageError) + "%\n\nList of outputs:\n"
 i = 0
 for o in outputs: 
     resultPrint = resultPrint + o + "\n   Error: " + str(errorRates[i]) + "%\n"
