@@ -51,12 +51,11 @@ def arterror (bits, type, chance):
 
     # Convert the list back to a string
     error_str = ''.join(bits_list)
-    print(type, "error added with a", chance, "chance:", error_str)
+    #print(type, "error added with a", chance, "chance:", error_str)
     return error_str
 
-"""
-string = "CCCCCCAACGCGCGCGCT"
-arterror(string, "insertion", 1/1000)
-arterror(string, "deletion", 1/1000)
-arterror(string, "substitution", 1/500)
-"""
+
+def injectError(string):
+    arterror(string, "insertion", 0.004)
+    arterror(string, "deletion", 0.1135)
+    arterror(string, "substitution", 0.003)
