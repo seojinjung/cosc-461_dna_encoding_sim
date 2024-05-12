@@ -46,13 +46,13 @@ def addAddressBits (blocksList):
 
 #composite function to take data and return a pool
 def makePool(inputString, blockSize):
-    #convert data to binary, binary to blocks, add address bits, then to bases?
+    #convert data to binary, binary to blocks, add address bits, then to bases
     dataInBinary = encode.toBinary(inputString)
     addressedDataInBinary = addAddressBits(splitToBlocks(dataInBinary, blockSize*8))
     addressedDataInBases = list()
     #TO BASES!
     for b in addressedDataInBinary:
-      addressedDataInBases.append(encode.toRandomNucleotides(b))
+      addressedDataInBases.append(encode.toNucleotides(b))
     return addressedDataInBases
 
 #testers

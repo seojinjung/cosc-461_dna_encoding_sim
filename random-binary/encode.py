@@ -23,7 +23,7 @@ def toBinary(a):
   return s
 
 # convert binary sequence to nucleotides
-def toRandomNucleotides(binarySequence):
+def toNucleotides(binarySequence):
   #return value: the calculated sequence of bases
   ret = ''
   gcc = 0 # GC Content
@@ -95,4 +95,4 @@ def toRandomNucleotides(binarySequence):
 
 # putting it together: take in an input string, output a nucleotide sequence
 def stringToNucleotides(inputString):
-  return toRandomNucleotides(toBinary(inputString))
+  return toNucleotides(toBinary(inputString))

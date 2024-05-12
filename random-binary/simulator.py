@@ -9,6 +9,7 @@ import sys
 import argparse
 import random
 import math
+from difflib import SequenceMatcher
 
 #local imports
 import encode
@@ -25,6 +26,7 @@ def read_args():
     parser.add_argument("--file_out", help = "File with decoded message", required = True)
     parser.add_argument("--file_dna_out", help = "File with DNA oligos", required = True)
     parser.add_argument("--c", help = "Coverage", required = True)
+    parser.add_argument("--t", help = "How many times to run the sim", required = True)
     args = parser.parse_args()
     args.orf = None
 
@@ -48,7 +50,7 @@ def readFile(file_in):
 def writeFile(file_out, data):
     # open file
     try:
-        f = open(file_out, "w")
+        f = open(file_out, "w", encoding="utf-8")
     except:
         logging.error("%s file not found", file_out)
         sys.exit(0)
@@ -128,9 +130,30 @@ def main():
 
     FINAL_TEXT = ""
     for i in sortedDecodedStrands: FINAL_TEXT = FINAL_TEXT + i
+    #STRIP NULL CHARACTERS FROM THE END
+    while(FINAL_TEXT[-1] == chr(0)):
+        FINAL_TEXT = FINAL_TEXT[:-1]
+    return FINAL_TEXT
 
-    print(FINAL_TEXT)
+def errorRate(string1, string2):
+    similarity = SequenceMatcher(None, string1, string2).ratio()
+    return (1.0-similarity)*100
 
-    #print to DNA_OUT
+args = read_args()
+outputs = list()
+errorRates = list()
+timesRun = int(args.t)
+input_text = readFile(args.file_in)
 
-main()
+for i in range(timesRun):
+    output = main()
+    outputs.append(output)
+    errorRates.append(errorRate(input_text, output))
+
+resultPrint = "RESULTS\n\nRan (" + str(timesRun) + ") times.\n\nList of outputs:\n"
+i = 0
+for o in outputs: 
+    resultPrint = resultPrint + o + "\n   Error: " + str(errorRates[i]) + "%\n"
+    i  = i + 1
+out = args.file_out
+writeFile(out, resultPrint)
