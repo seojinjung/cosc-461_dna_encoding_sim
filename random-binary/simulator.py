@@ -118,13 +118,13 @@ def main():
     #MAJORITY VOTE
     sortedDecodedStrands = list()
     for i in range(len(POOL)): sortedDecodedStrands.append(" ")
-
     for key in strandsByAddress:
         majorityStrandNT = decode.majorityVote(strandsByAddress[key], DATA_BITS)
         majorityStrandBinary = decode.ntToBinary(majorityStrandNT)
         majorityStrandString = decode.binaryToString(majorityStrandBinary)
         keyAsInt = int(key, 2)
-        sortedDecodedStrands[keyAsInt] =  majorityStrandString
+        #if statement to catch rogue incorrectly address strands
+        if (keyAsInt <= (len(sortedDecodedStrands) -1)): sortedDecodedStrands[keyAsInt] =  majorityStrandString
 
     FINAL_TEXT = ""
     for i in sortedDecodedStrands: FINAL_TEXT = FINAL_TEXT + i
