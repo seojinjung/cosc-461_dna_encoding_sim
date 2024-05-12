@@ -56,6 +56,7 @@ def makePool(inputString, blockSize):
     return addressedDataInBases
 
 #testers
+"""
 BLOCK_SIZE = 12
 
 INPUT1 = "All"
@@ -68,3 +69,4 @@ POOLS.append(makePool(INPUT2, BLOCK_SIZE))
 POOLS.append(makePool(INPUT3, BLOCK_SIZE))
 
 for p in POOLS: print(p)
+"""

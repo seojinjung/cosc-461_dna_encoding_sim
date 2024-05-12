@@ -5,7 +5,7 @@ Turns text into nucleotide sequences. Uses RANDOM BINARY encoding described by C
 
 Key functions:
     toBinary(string)
-    toRandomNucleotides(string_input)
+    toRandomNucleotides(binary_sequence)
 """
 
 import random
