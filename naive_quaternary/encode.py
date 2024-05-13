@@ -117,9 +117,9 @@ def main():
     output = binToDNA(binput)
 
     # inject errors
-    output = arterror(output, "insertion", 0.004)
-    output = arterror(output, "deletion", 0.1135)
-    output = arterror(output, "substitution", 0.003)
+    # output = arterror(output, "insertion", 0.004)
+    # output = arterror(output, "deletion", 0.1135)
+    # output = arterror(output, "substitution", 0.003)
 
     # results of homopolymer + gc tests
     homopolymers = homopolymer(output)
