@@ -135,4 +135,4 @@ def main():
     print("file", args.out, "created.")
 
 # ---
-# main()
+main()
