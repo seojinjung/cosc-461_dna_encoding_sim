@@ -1,0 +1,9 @@
+~~~~ Encoding Report ~~~~ 
+
+ORIGINAL TEXT: 
+Super short!
+Total strands: 1
+Coverage: 3
+-------------------------------POOL------------------------------------
+
+CTGTGTCTCAGTCGCTCTGACTAGTAGAGTCAGCTATACAGCGATACACTAGTACGTGTCTCGAT
