@@ -47,6 +47,8 @@ def readAsBinary(file_in):
     # print(x)
     # print(data)
 
+    f.close()
+
     return data
 
 # binToDNA function: convert binary data to dna nucleotides
@@ -106,9 +108,9 @@ def gc(dna):
 # main function: takes file argument, translates to binary, and outputs a DNA sequence
 def main():
     args = read_args()
-    print("reading file.")
-
+    
     # read file as binary
+    print('reading file.')
     binput = readAsBinary(args.file_in)
     
     # to human readable DNA
@@ -132,5 +134,5 @@ def main():
     out.close()
     print("file", args.out, "created.")
 
-# ----
-main()
+# ---
+# main()

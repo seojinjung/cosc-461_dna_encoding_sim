@@ -53,3 +53,9 @@ def arterror (bits, type, chance):
     error_str = ''.join(bits_list)
     #print(type, "error added with a", chance, "chance:", error_str)
     return error_str
+
+def injectError(string):
+    # string = arterror(string, "insertion", 0.004)
+    # string = arterror(string, "deletion", 0.1135)
+    # string = arterror(string, "substitution", 0.003)
+    return string
