@@ -51,10 +51,11 @@ def DNAToBin(dna):
     #   print("decoded binary: ", bin)
 
     # convert to proper binary and return
-    # return int(bin, 2).to_bytes((len(bin) + 7) // 8, byteorder='big')
+    return int(bin, 2).to_bytes((len(bin) + 7) // 8, byteorder='big')
+    # return int(bin, 2).to_bytes((len(bin) + 15) // 16, byteorder='little')
 
     # alternate version where it stays a string
-    return bin
+    # return bin
 
 def binToText(bin):
     ret = ""
@@ -125,6 +126,8 @@ def main():
     # read DNA-encoded file
     print("reading file.")
     input = readDNA(args.file_in)
+
+    print("nucs:", len(input))
     
     decoded = DNAToBin(input)
     
@@ -134,4 +137,4 @@ def main():
     out.close()
     print("saved file as", args.out)
 # ----
-# main()
+main()
